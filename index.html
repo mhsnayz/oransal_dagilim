@@ -1,0 +1,405 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Tiens Oransal Dağıtıcı</title>
+  
+  <!-- PWA Manifest -->
+  <link rel="manifest" href="data:application/json;base64,ewogICJuYW1lIjogIlRpZW5zIE9yYW5zYWwgRGHEn8SxdMSxY8SxIiwKICAic2hvcnRfbmFtZSI6ICJUaWVucyBEYcSfxLF0xLFjxLEiLAogICJzdGFydF91cmwiOiAiLiIsCiAgImRpc3BsYXkiOiAic3RhbmRhbG9uZSIsCiAgImJhY2tncm91bmRfY29sb3IiOiAiI2YwZjJmNSIsCiAgInRoZW1lX2NvbG9yIjogIiMwMDdiZmYiLAogICJpY29ucyI6IFsKICAgIHsKICAgICAgInNyYyI6ICJkYXRhOmltYWdlL3N2Zyt4bWw7YmFzZTY0LFBITjJaeUE0Yld4dWN6MGlhSFIwY0RvdkwzZDNkeTUzTXk1dmNtY3ZNakF3TUM5emRtY2lJSGRwWkhSb1BTSXhNakFpSUdobGFXZG9kRDBpTVRJd0lqNDhjbVZqZENCM2FXUjBhRDBpTVRJd0lpQm9aV2xuYUhROUlqRXlNQ0lpSUdacGJHdzlJaU13TURkaVptWWlMejQ4TDNOMlp6ND0iLAogICAgICAic2l6ZXMiOiAiMTIweDEyMCIsCiAgICAgICJ0eXBlIjogImltYWdlL3N2Zyt4bWwiCiAgICB9CiAgXQp9">
+  
+  <!-- Apple touch icon -->
+  <link rel="apple-touch-icon" href="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxMjAiIGhlaWdodD0iMTIwIj48cmVjdCB3aWR0aD0iMTIwIiBoZWlnaHQ9IjEyMCIgZmlsbD0iIzAwN2JmZiIvPjwvc3ZnPg==">
+  
+  <style>
+    * { box-sizing: border-box; }
+    body { 
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Arial, sans-serif; 
+      background: #f0f2f5; 
+      padding: 15px; 
+      margin: 0; 
+      line-height: 1.5;
+    }
+    
+    .container { 
+      max-width: 600px; 
+      margin: 0 auto; 
+      background: white; 
+      padding: 20px; 
+      border-radius: 12px; 
+      box-shadow: 0 4px 20px rgba(0,0,0,0.1); 
+    }
+    
+    h1 { 
+      color: #1a1a1a; 
+      margin: 0 0 20px 0; 
+      font-size: 1.5rem; 
+      text-align: center;
+      font-weight: 600;
+    }
+    
+    .logo {
+      text-align: center;
+      margin-bottom: 20px;
+      font-size: 2rem;
+      color: #007bff;
+    }
+    
+    .form-group { 
+      margin-bottom: 20px; 
+    }
+    
+    label { 
+      display: block; 
+      margin-bottom: 8px; 
+      font-weight: 600; 
+      color: #333;
+      font-size: 0.95rem;
+    }
+    
+    input[type="text"], input[type="number"] { 
+      width: 100%; 
+      padding: 12px 16px; 
+      border: 2px solid #e1e5e9; 
+      border-radius: 8px; 
+      font-size: 16px;
+      background: #fff;
+      transition: border-color 0.2s;
+    }
+    
+    input:focus {
+      outline: none;
+      border-color: #007bff;
+    }
+    
+    .input-table { 
+      width: 100%; 
+      border-collapse: collapse; 
+      margin: 20px 0;
+      background: white;
+    }
+    
+    .input-table th { 
+      background: #f8f9fa; 
+      padding: 12px 8px; 
+      font-weight: 600;
+      color: #495057;
+      border: 1px solid #dee2e6;
+      text-align: center;
+    }
+    
+    .input-table td { 
+      padding: 8px; 
+      border: 1px solid #dee2e6;
+    }
+    
+    .input-table input {
+      border: 1px solid #ced4da;
+      padding: 8px 12px;
+      margin: 0;
+    }
+    
+    .btn-group { 
+      display: grid; 
+      grid-template-columns: 1fr 1fr; 
+      gap: 10px; 
+      margin: 20px 0;
+    }
+    
+    .btn-calculate {
+      grid-column: 1 / -1;
+      margin-top: 10px;
+    }
+    
+    button { 
+      padding: 14px 20px; 
+      border: none; 
+      border-radius: 8px; 
+      font-size: 16px; 
+      font-weight: 600; 
+      cursor: pointer; 
+      transition: all 0.2s;
+      min-height: 48px;
+    }
+    
+    .btn-primary { 
+      background: #007bff; 
+      color: white; 
+    }
+    
+    .btn-primary:hover { 
+      background: #0056b3; 
+    }
+    
+    .btn-secondary { 
+      background: #6c757d; 
+      color: white; 
+    }
+    
+    .btn-secondary:hover { 
+      background: #545b62; 
+    }
+    
+    .btn-success {
+      background: #28a745;
+      color: white;
+    }
+    
+    .btn-success:hover {
+      background: #1e7e34;
+    }
+    
+    button:active { 
+      transform: translateY(1px); 
+    }
+    
+    .results { 
+      margin-top: 30px; 
+    }
+    
+    .result-table { 
+      width: 100%; 
+      border-collapse: collapse; 
+      margin: 20px 0;
+      background: white;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+      border-radius: 8px;
+      overflow: hidden;
+    }
+    
+    .result-table th { 
+      background: #007bff; 
+      color: white; 
+      padding: 12px 8px; 
+      font-weight: 600;
+      text-align: center;
+    }
+    
+    .result-table td { 
+      padding: 12px 8px; 
+      border-bottom: 1px solid #dee2e6;
+      text-align: center;
+    }
+    
+    .total-row { 
+      background: #e8f5e8; 
+      font-weight: bold; 
+    }
+    
+    .result-title {
+      color: #1a1a1a;
+      font-size: 1.3rem;
+      margin: 0 0 15px 0;
+      text-align: center;
+    }
+    
+    @media (max-width: 480px) {
+      .container { 
+        padding: 15px; 
+        margin: 10px;
+      }
+      
+      h1 { 
+        font-size: 1.3rem; 
+      }
+      
+      .result-table, .input-table {
+        font-size: 0.85rem;
+      }
+      
+      .result-table th, .result-table td,
+      .input-table th, .input-table td {
+        padding: 8px 4px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="logo">🏢</div>
+    <h1>Tiens Oransal Dağıtıcı</h1>
+
+    <div class="form-group">
+      <label for="productName">Hesaplanacak Ürün:</label>
+      <input type="text" id="productName" value="Bilet">
+    </div>
+
+    <div class="form-group">
+      <label for="totalTickets">Toplam Adet:</label>
+      <input type="number" id="totalTickets" min="1">
+    </div>
+
+    <table class="input-table" id="inputTable">
+      <thead>
+        <tr>
+          <th>Sorumlu</th>
+          <th>DS Sayısı</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><input type="text" class="responsible" placeholder="İsim"></td>
+          <td><input type="number" class="ds" min="0" placeholder="0"></td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div class="btn-group">
+      <button type="button" class="btn-secondary" id="addBtn">➕ Kişi Ekle</button>
+      <button type="button" class="btn-secondary" id="removeBtn">➖ Kişi Sil</button>
+      <button type="button" class="btn-success btn-calculate" id="calcBtn">📊 Hesapla</button>
+    </div>
+
+    <div id="result" class="results"></div>
+  </div>
+
+  <script>
+    // Türkçe büyük/küçük harf dönüştürme
+    function toTitleCaseTR(str) {
+      return str.toLowerCase().replace(/(^|\s)\S/g, function(t) { 
+        return t.toUpperCase(); 
+      });
+    }
+
+    // Kişi ekleme
+    function addRow() {
+      const tbody = document.querySelector('#inputTable tbody');
+      const row = tbody.insertRow();
+      row.innerHTML = `
+        <td><input type="text" class="responsible" placeholder="İsim"></td>
+        <td><input type="number" class="ds" min="0" placeholder="0"></td>
+      `;
+    }
+
+    // Kişi silme
+    function removeRow() {
+      const tbody = document.querySelector('#inputTable tbody');
+      if (tbody.rows.length > 1) {
+        tbody.deleteRow(-1);
+      }
+    }
+
+    // Hesaplama
+    function calculate() {
+      const total = parseInt(document.getElementById("totalTickets").value);
+      const product = document.getElementById("productName").value || "Ürün";
+      
+      const responsibleInputs = document.getElementsByClassName("responsible");
+      const dsInputs = document.getElementsByClassName("ds");
+      
+      const responsibles = Array.from(responsibleInputs).map(input => 
+        toTitleCaseTR(input.value.trim())
+      );
+      const dsValues = Array.from(dsInputs).map(input => 
+        parseInt(input.value) || 0
+      );
+
+      // Validasyon
+      if (!total || total <= 0) {
+        alert("Lütfen geçerli bir toplam adet giriniz.");
+        return;
+      }
+
+      if (responsibles.some(name => !name)) {
+        alert("Lütfen tüm sorumlu isimlerini giriniz.");
+        return;
+      }
+
+      if (dsValues.every(val => val === 0)) {
+        alert("En az bir DS sayısı 0'dan büyük olmalıdır.");
+        return;
+      }
+
+      // Hesaplama
+      const sum = dsValues.reduce((a, b) => a + b, 0);
+      const rawAlloc = dsValues.map(v => (v / sum) * total);
+      const alloc = rawAlloc.map(v => Math.floor(v));
+      const used = alloc.reduce((a, b) => a + b, 0);
+      const remaining = total - used;
+
+      // Kalan dağıtımı
+      const remainders = rawAlloc.map((v, i) => ({
+        index: i,
+        frac: v - alloc[i]
+      }));
+      
+      remainders.sort((a, b) => b.frac - a.frac);
+      
+      for (let i = 0; i < remaining; i++) {
+        alloc[remainders[i].index]++;
+      }
+
+      // Sonuç tablosu
+      let resultHTML = `<h2 class="result-title">${product} Dağılımı</h2>`;
+      resultHTML += `<table class="result-table">
+        <thead>
+          <tr>
+            <th>Sorumlu</th>
+            <th>DS Sayısı</th>
+            <th>Oran (%)</th>
+            <th>${product} Sayısı</th>
+          </tr>
+        </thead>
+        <tbody>`;
+
+      responsibles.forEach((name, i) => {
+        const percentage = ((dsValues[i] / sum) * 100).toFixed(1);
+        resultHTML += `
+          <tr>
+            <td>${name}</td>
+            <td>${dsValues[i]}</td>
+            <td>${percentage}%</td>
+            <td><strong>${alloc[i]}</strong></td>
+          </tr>`;
+      });
+
+      const totalAllocated = alloc.reduce((a, b) => a + b, 0);
+      resultHTML += `
+          <tr class="total-row">
+            <td colspan="3"><strong>TOPLAM</strong></td>
+            <td><strong>${totalAllocated}</strong></td>
+          </tr>
+        </tbody>
+      </table>`;
+
+      document.getElementById("result").innerHTML = resultHTML;
+    }
+
+    // Event listener'lar - hem touch hem click
+    function setupEventListeners() {
+      const addBtn = document.getElementById("addBtn");
+      const removeBtn = document.getElementById("removeBtn");
+      const calcBtn = document.getElementById("calcBtn");
+
+      // Modern tarayıcılar için
+      addBtn.addEventListener("click", addRow);
+      removeBtn.addEventListener("click", removeRow);
+      calcBtn.addEventListener("click", calculate);
+
+      // iOS Safari backup
+      addBtn.addEventListener("touchstart", function(e) {
+        e.preventDefault();
+        setTimeout(addRow, 10);
+      });
+
+      removeBtn.addEventListener("touchstart", function(e) {
+        e.preventDefault();
+        setTimeout(removeRow, 10);
+      });
+
+      calcBtn.addEventListener("touchstart", function(e) {
+        e.preventDefault();
+        setTimeout(calculate, 10);
+      });
+    }
+
+    // Sayfa yüklendiğinde başlat
+    document.addEventListener('DOMContentLoaded', setupEventListeners);
+
+    // PWA için service worker
+    if ('serviceWorker' in navigator) {
+      navigator.serviceWorker.register('data:text/javascript,console.log("SW loaded")');
+    }
+  </script>
+</body>
+</html>
